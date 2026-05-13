@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pablo Morena — Data Scientist Portfolio</title>
+    <meta name="description" content="Data Science portfolio by Pablo Morena. Featuring an end-to-end ML project predicting FIFA World Cup 2026 matches with XGBoost and Generative AI." />
+
+    <!-- Open Graph tags for LinkedIn / Twitter / Facebook previews -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Pablo Morena — Data Scientist Portfolio" />
+    <meta property="og:description" content="End-to-End Data Science Project: FIFA World Cup 2026 AI Predictor with XGBoost + GenAI" />
+    <meta property="og:url" content="https://pablo-morena.github.io/" />
+    <meta property="og:image" content="https://pablo-morena.github.io/preview.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 30px;
+        }
+
+        /* ── HEADER ── */
+        header {
+            text-align: center;
+            margin-bottom: 70px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(232, 192, 64, 0.2);
+        }
+
+        h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3.5rem;
+            color: #ffffff;
+            letter-spacing: 3px;
+            margin-bottom: 12px;
+        }
+
+        .tagline {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.4rem;
+            color: #e8c040;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .bio {
+            font-size: 1.05rem;
+            color: #aaa;
+            margin-top: 25px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .social-links {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            color: #e8c040;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid rgba(232, 192, 64, 0.4);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .social-link:hover {
+            background: rgba(232, 192, 64, 0.1);
+            border-color: #e8c040;
+            transform: translateY(-2px);
+        }
+
+        /* ── SECTION ── */
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: #e8c040;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        /* ── PROJECT CARD ── */
+        .project-card {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 16px;
+            padding: 40px;
+            border: 1px solid rgba(232, 192, 64, 0.2);
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-emoji {
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+
+        .project-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.2rem;
+            color: #ffffff;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .project-subtitle {
+            color: #e8c040;
+            font-size: 1rem;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        .project-description {
+            color: #ccc;
+            font-size: 1rem;
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .highlights {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .highlights li {
+            padding: 8px 0;
+            color: #ccc;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .highlights li::before {
+            content: "⚽";
+            position: absolute;
+            left: 0;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .tech-tag {
+            background: rgba(232, 192, 64, 0.1);
+            color: #e8c040;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(232, 192, 64, 0.3);
+        }
+
+        .button-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #e8c040, #f0a500);
+            color: #0a0a0f;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(232, 192, 64, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #e0e0e0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(232, 192, 64, 0.2);
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .tagline { font-size: 1rem; }
+            .project-title { font-size: 1.6rem; }
+            .container { padding: 40px 20px; }
+            .project-card { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- HEADER -->
+        <header>
+            <h1>PABLO MORENA</h1>
+            <div class="tagline">Data Scientist · ML Engineer</div>
+            <p class="bio">
+                Data Science professional with a passion for building end-to-end ML solutions —
+                from raw data exploration and feature engineering, through model training and
+                evaluation, to production deployment with modern user interfaces.
+            </p>
+            <div class="social-links">
+                <a class="social-link" href="https://www.linkedin.com/in/pablo-morena/" target="_blank" rel="noopener">
+                    💼 LinkedIn
+                </a>
+                <a class="social-link" href="https://github.com/PabloXberg/" target="_blank" rel="noopener">
+                    💻 GitHub
+                </a>
+                <a class="social-link" href="mailto:your.email@example.com">
+                    ✉️ Email
+                </a>
+            </div>
+        </header>
+
+        <!-- FEATURED PROJECT -->
+        <h2 class="section-title">⭐ Featured Project</h2>
+
+        <div class="project-card">
+            <div class="project-emoji">⚽</div>
+            <h2 class="project-title">FIFA World Cup 2026 AI Predictor</h2>
+            <p class="project-subtitle">End-to-End Data Science Project · Final Bootcamp Project 2025</p>
+
+            <p class="project-description">
+                A comprehensive Data Science pipeline that predicts international football match
+                outcomes using over 150 years of historical data (49,000+ matches). The application
+                features a full FIFA World Cup 2026 tournament simulator with all 48 teams,
+                104 matches, group standings, and a complete knockout bracket — plus AI-powered
+                match analysis grounded in real statistical data.
+            </p>
+
+            <ul class="highlights">
+                <li>Engineered 13 contextual features per match (rankings, form, H2H, venue) with zero data leakage</li>
+                <li>Trained &amp; compared 4 ML/DL models: XGBoost (best ~62%), Random Forest, Gradient Boosting, Neural Network</li>
+                <li>Integrated a Large Language Model (LLM) via OpenRouter with multi-model fallback system</li>
+                <li>Built an interactive 4-page Streamlit app with custom dark theme &amp; team crest visualization</li>
+                <li>Simulates the entire World Cup 2026 bracket: group stage + Round of 32 → Final</li>
+            </ul>
+
+            <div class="tech-stack">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">XGBoost</span>
+                <span class="tech-tag">TensorFlow</span>
+                <span class="tech-tag">Scikit-learn</span>
+                <span class="tech-tag">Pandas</span>
+                <span class="tech-tag">Streamlit</span>
+                <span class="tech-tag">Plotly</span>
+                <span class="tech-tag">OpenRouter (LLM)</span>
+                <span class="tech-tag">Joblib</span>
+            </div>
+
+            <div class="button-row">
+                <a class="btn btn-primary" href="https://fifa-wc26-predictor.streamlit.app/" target="_blank" rel="noopener">
+                    🚀 LAUNCH LIVE APP
+                </a>
+                <a class="btn btn-secondary" href="https://github.com/PabloXberg/Final-Project---World-Cup" target="_blank" rel="noopener">
+                    💻 VIEW SOURCE CODE
+                </a>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer>
+            <p>© 2025 Pablo Morena · Built with ❤️ and Data Science</p>
+        </footer>
+
+    </div>
+</body>
+</html>
