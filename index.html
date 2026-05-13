@@ -1,314 +1,1332 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pablo Morena — Data Scientist Portfolio</title>
-    <meta name="description" content="Data Science portfolio by Pablo Morena. Featuring an end-to-end ML project predicting FIFA World Cup 2026 matches with XGBoost and Generative AI." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pablo Morena — Data Scientist & Full-Stack Developer</title>
+  <meta name="description" content="Portfolio of Pablo Morena — Data Scientist and Full-Stack Developer based in Berlin. End-to-end ML projects and modern web applications." />
 
-    <!-- Open Graph tags for LinkedIn / Twitter / Facebook previews -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Pablo Morena — Data Scientist Portfolio" />
-    <meta property="og:description" content="End-to-End Data Science Project: FIFA World Cup 2026 AI Predictor with XGBoost + GenAI" />
-    <meta property="og:url" content="https://pablo-morena.github.io/" />
-    <meta property="og:image" content="https://pablo-morena.github.io/preview.png" />
-    <meta name="twitter:card" content="summary_large_image" />
+  <!-- Open Graph / social previews -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Pablo Morena — Data Scientist & Full-Stack Developer" />
+  <meta property="og:description" content="End-to-end ML projects and modern web applications. Based in Berlin." />
+  <meta property="og:url" content="https://pablomorena.com/" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <!-- Fonts: Fraunces (display serif) + Geist (body sans) + Geist Mono (mono accents) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+  <!-- Favicon (inline SVG, can be replaced later) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230d0c0a'/><text x='50' y='66' font-family='serif' font-size='52' font-weight='500' fill='%23d4a857' text-anchor='middle'>P</text></svg>" />
 
-        body {
-            font-family: 'Open Sans', sans-serif;
-            background: linear-gradient(135deg, #0a0a0f 0%, #16213e 100%);
-            color: #e0e0e0;
-            min-height: 100vh;
-            line-height: 1.6;
-        }
+  <style>
+    /* ─────────────────────────────────────────
+       TOKENS
+    ───────────────────────────────────────── */
+    :root {
+      --bg: #0d0c0a;
+      --bg-2: #15130f;
+      --bg-card: #1a1814;
+      --border: rgba(255, 248, 230, 0.08);
+      --border-strong: rgba(255, 248, 230, 0.14);
+      --text: #ede9e0;
+      --text-dim: #9a948a;
+      --text-faint: #5f5a52;
+      --accent: #d4a857;
+      --accent-dim: #8a6f3a;
+      --serif: 'Fraunces', 'Georgia', serif;
+      --sans: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono: 'Geist Mono', ui-monospace, monospace;
+      --maxw: 1180px;
+      --pad-x: clamp(20px, 5vw, 60px);
+    }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 60px 30px;
-        }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-weight: 400;
+      font-feature-settings: 'ss01', 'cv01';
+      overflow-x: hidden;
+      position: relative;
+    }
 
-        /* ── HEADER ── */
-        header {
-            text-align: center;
-            margin-bottom: 70px;
-            padding-bottom: 40px;
-            border-bottom: 1px solid rgba(232, 192, 64, 0.2);
-        }
+    /* Subtle grain overlay for texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.025;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    }
 
-        h1 {
-            font-family: 'Oswald', sans-serif;
-            font-size: 3.5rem;
-            color: #ffffff;
-            letter-spacing: 3px;
-            margin-bottom: 12px;
-        }
+    /* Ambient glow accents */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -20%;
+      right: -10%;
+      width: 60vw;
+      height: 60vw;
+      background: radial-gradient(circle, rgba(212, 168, 87, 0.06) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(40px);
+    }
 
-        .tagline {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.4rem;
-            color: #e8c040;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-        }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
 
-        .bio {
-            font-size: 1.05rem;
-            color: #aaa;
-            margin-top: 25px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+    .wrap {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 var(--pad-x);
+      position: relative;
+      z-index: 2;
+    }
 
-        .social-links {
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
+    /* ─────────────────────────────────────────
+       HEADER
+    ───────────────────────────────────────── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      backdrop-filter: blur(14px) saturate(140%);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      background: rgba(13, 12, 10, 0.72);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+    }
+    .logo {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -0.5px;
+      color: var(--text);
+    }
+    .logo span { color: var(--accent); }
 
-        .social-link {
-            color: #e8c040;
-            text-decoration: none;
-            padding: 10px 20px;
-            border: 1px solid rgba(232, 192, 64, 0.4);
-            border-radius: 8px;
-            font-size: 0.95rem;
-            transition: all 0.2s;
-        }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .nav-links a {
+      transition: color 0.25s ease;
+      position: relative;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -4px;
+      width: 0; height: 1px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
 
-        .social-link:hover {
-            background: rgba(232, 192, 64, 0.1);
-            border-color: #e8c040;
-            transform: translateY(-2px);
-        }
+    /* Lang toggle pill */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      position: relative;
+      cursor: pointer;
+      user-select: none;
+    }
+    .lang-toggle button {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      padding: 6px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: 500;
+      letter-spacing: inherit;
+      transition: color 0.3s ease;
+      position: relative;
+      z-index: 2;
+    }
+    .lang-toggle button.active { color: var(--bg); }
+    .lang-pill-bg {
+      position: absolute;
+      top: 3px; bottom: 3px;
+      width: calc(50% - 3px);
+      background: var(--accent);
+      border-radius: 999px;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1;
+    }
+    .lang-toggle[data-lang="en"] .lang-pill-bg { transform: translateX(100%); }
 
-        /* ── SECTION ── */
-        .section-title {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.5rem;
-            color: #e8c040;
-            letter-spacing: 3px;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-        }
+    @media (max-width: 720px) {
+      .nav-links { display: none; }
+    }
 
-        /* ── PROJECT CARD ── */
-        .project-card {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            border-radius: 16px;
-            padding: 40px;
-            border: 1px solid rgba(232, 192, 64, 0.2);
-            margin-bottom: 30px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        }
+    /* ─────────────────────────────────────────
+       HERO
+    ───────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 100px;
+      padding-bottom: 80px;
+      position: relative;
+    }
 
-        .project-emoji {
-            font-size: 4rem;
-            margin-bottom: 15px;
-        }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.1s forwards;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: var(--accent);
+    }
 
-        .project-title {
-            font-family: 'Oswald', sans-serif;
-            font-size: 2.2rem;
-            color: #ffffff;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-        }
+    .hero h1 {
+      /* deprecated — kept for backwards compatibility, no longer used */
+      display: none;
+    }
 
-        .project-subtitle {
-            color: #e8c040;
-            font-size: 1rem;
-            margin-bottom: 25px;
-            letter-spacing: 1px;
-        }
+    .hero-sub {
+      font-family: var(--serif);
+      font-size: clamp(22px, 2.8vw, 36px);
+      font-weight: 400;
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+      color: var(--text-dim);
+      max-width: 940px;
+      margin-bottom: 56px;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.2s forwards;
+    }
+    .hero-sub strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+    .hero-sub em {
+      font-style: italic;
+      color: var(--accent);
+      font-weight: 300;
+    }
 
-        .project-description {
-            color: #ccc;
-            font-size: 1rem;
-            margin-bottom: 25px;
-            line-height: 1.8;
-        }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.5s forwards;
+    }
 
-        .highlights {
-            list-style: none;
-            margin-bottom: 30px;
-        }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 24px;
+      border-radius: 999px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: all 0.25s ease;
+      border: 1px solid var(--border-strong);
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+    }
+    .btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .btn.primary {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+    .btn.primary:hover {
+      background: transparent;
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .btn svg { width: 14px; height: 14px; }
 
-        .highlights li {
-            padding: 8px 0;
-            color: #ccc;
-            padding-left: 25px;
-            position: relative;
-        }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-        .highlights li::before {
-            content: "⚽";
-            position: absolute;
-            left: 0;
-        }
+    /* Scrolling indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      left: var(--pad-x);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      opacity: 0;
+      animation: fadeUp 1.2s ease 0.8s forwards;
+    }
+    .scroll-hint::after {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: var(--text-faint);
+      animation: scrollLine 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%, 100% { transform: scaleX(1); transform-origin: left; }
+      50% { transform: scaleX(0.3); transform-origin: left; }
+    }
 
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 30px;
-        }
+    /* ─────────────────────────────────────────
+       SECTIONS
+    ───────────────────────────────────────── */
+    section.block {
+      padding: 120px 0;
+      border-top: 1px solid var(--border);
+      position: relative;
+    }
+    .section-head {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 40px;
+      margin-bottom: 60px;
+      align-items: baseline;
+    }
+    .section-num {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: var(--text);
+    }
+    .section-title em {
+      font-style: italic;
+      color: var(--accent);
+      font-weight: 300;
+    }
 
-        .tech-tag {
-            background: rgba(232, 192, 64, 0.1);
-            color: #e8c040;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            border: 1px solid rgba(232, 192, 64, 0.3);
-        }
+    @media (max-width: 720px) {
+      .section-head { grid-template-columns: 1fr; gap: 12px; }
+      section.block { padding: 80px 0; }
+    }
 
-        .button-row {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
+    /* ─────────────────────────────────────────
+       ABOUT
+    ───────────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 40px;
+    }
+    .about-content {
+      max-width: 720px;
+    }
+    .about-content p {
+      font-size: 19px;
+      line-height: 1.7;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+    .about-content p.dim { color: var(--text-dim); font-size: 17px; }
 
-        .btn {
-            display: inline-block;
-            padding: 14px 32px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-family: 'Oswald', sans-serif;
-            font-size: 1rem;
-            letter-spacing: 2px;
-            transition: all 0.2s;
-            cursor: pointer;
-        }
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 24px;
+      margin-top: 50px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+    .stat-num {
+      font-family: var(--serif);
+      font-size: 42px;
+      font-weight: 400;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
 
-        .btn-primary {
-            background: linear-gradient(90deg, #e8c040, #f0a500);
-            color: #0a0a0f;
-            font-weight: 600;
-        }
+    @media (max-width: 720px) {
+      .about-grid { grid-template-columns: 1fr; }
+    }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(232, 192, 64, 0.3);
-        }
+    /* ─────────────────────────────────────────
+       PROJECTS
+    ───────────────────────────────────────── */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 28px;
+    }
+    @media (max-width: 720px) {
+      .projects { grid-template-columns: 1fr; }
+    }
 
-        .btn-secondary {
-            background: transparent;
-            color: #e0e0e0;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
+    .project {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .project:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px -20px rgba(212, 168, 87, 0.15);
+    }
 
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.4);
-        }
+    .project-visual {
+      aspect-ratio: 16 / 9;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .visual-fifa {
+      background:
+        radial-gradient(circle at 30% 40%, rgba(212, 168, 87, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(40, 80, 60, 0.4) 0%, transparent 50%),
+        linear-gradient(135deg, #0f1612 0%, #1a2520 100%);
+    }
+    .visual-syso {
+      background:
+        radial-gradient(circle at 70% 30%, rgba(212, 168, 87, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 30% 70%, rgba(80, 60, 100, 0.3) 0%, transparent 50%),
+        linear-gradient(135deg, #15101a 0%, #1f1a25 100%);
+    }
+    .project-icon {
+      font-family: var(--serif);
+      font-size: 80px;
+      color: var(--accent);
+      opacity: 0.55;
+      filter: drop-shadow(0 4px 30px rgba(212, 168, 87, 0.3));
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .project:hover .project-icon { transform: scale(1.08) rotate(-2deg); }
 
-        /* ── FOOTER ── */
-        footer {
-            text-align: center;
-            margin-top: 60px;
-            padding-top: 30px;
-            border-top: 1px solid rgba(232, 192, 64, 0.2);
-            color: #666;
-            font-size: 0.9rem;
-        }
+    .project-body {
+      padding: 32px 30px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .project-tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .project-title {
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+    .project-desc {
+      color: var(--text-dim);
+      font-size: 15px;
+      line-height: 1.65;
+      margin-bottom: 22px;
+      flex: 1;
+    }
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 22px;
+    }
+    .chip {
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 5px 10px;
+      border: 1px solid var(--border-strong);
+      border-radius: 3px;
+      color: var(--text-dim);
+      letter-spacing: 0.04em;
+    }
+    .project-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .project-links .btn {
+      padding: 10px 16px;
+      font-size: 11px;
+    }
 
-        /* ── RESPONSIVE ── */
-        @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            .tagline { font-size: 1rem; }
-            .project-title { font-size: 1.6rem; }
-            .container { padding: 40px 20px; }
-            .project-card { padding: 25px; }
-        }
-    </style>
+    /* ─────────────────────────────────────────
+       SKILLS
+    ───────────────────────────────────────── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 40px;
+    }
+    .skills-cats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 36px;
+    }
+    .skill-cat h3 {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .skill-cat ul {
+      list-style: none;
+    }
+    .skill-cat li {
+      padding: 7px 0;
+      font-size: 15px;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .skill-cat li:last-child { border-bottom: none; }
+    .skill-cat li .level {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-faint);
+      letter-spacing: 0.1em;
+    }
+
+    @media (max-width: 720px) {
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─────────────────────────────────────────
+       TIMELINE (Education + Experience)
+    ───────────────────────────────────────── */
+    .timeline-wrap {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 40px;
+    }
+    .timeline {
+      max-width: 800px;
+    }
+    .timeline-block + .timeline-block { margin-top: 60px; }
+    .timeline-block > h3 {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+    .tl-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 28px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .tl-item:last-child { border-bottom: none; }
+    .tl-date {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--text-dim);
+      letter-spacing: 0.04em;
+      padding-top: 3px;
+    }
+    .tl-content h4 {
+      font-family: var(--serif);
+      font-size: 19px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .tl-content .org {
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+    .tl-content .desc {
+      margin-top: 6px;
+      font-size: 14px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 720px) {
+      .timeline-wrap { grid-template-columns: 1fr; }
+      .tl-item { grid-template-columns: 1fr; gap: 6px; }
+    }
+
+    /* ─────────────────────────────────────────
+       CONTACT
+    ───────────────────────────────────────── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 40px;
+    }
+    .contact-inner {
+      max-width: 760px;
+    }
+    .contact-lead {
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 40px;
+      letter-spacing: -0.02em;
+    }
+    .contact-lead em {
+      font-style: italic;
+      color: var(--accent);
+      font-weight: 300;
+    }
+
+    .contact-channels {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-bottom: 50px;
+    }
+    .channel {
+      padding: 22px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .channel:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+    .channel-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+    }
+    .channel-value {
+      font-family: var(--serif);
+      font-size: 18px;
+      color: var(--text);
+      word-break: break-word;
+    }
+    .channel:hover .channel-value { color: var(--accent); }
+
+    .cv-downloads {
+      padding-top: 36px;
+      border-top: 1px solid var(--border);
+    }
+    .cv-downloads h3 {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+    .cv-btns {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 720px) {
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────── */
+    footer {
+      padding: 50px 0 40px;
+      border-top: 1px solid var(--border);
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text-faint);
+      letter-spacing: 0.05em;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    footer a:hover { color: var(--accent); }
+
+    /* ─────────────────────────────────────────
+       SCROLL REVEAL
+    ───────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
 
-        <!-- HEADER -->
-        <header>
-            <h1>PABLO MORENA</h1>
-            <div class="tagline">Data Scientist · ML Engineer</div>
-            <p class="bio">
-                Data Science professional with a passion for building end-to-end ML solutions —
-                from raw data exploration and feature engineering, through model training and
-                evaluation, to production deployment with modern user interfaces.
-            </p>
-            <div class="social-links">
-                <a class="social-link" href="https://www.linkedin.com/in/pablo-morena/" target="_blank" rel="noopener">
-                    💼 LinkedIn
-                </a>
-                <a class="social-link" href="https://github.com/PabloXberg/" target="_blank" rel="noopener">
-                    💻 GitHub
-                </a>
-                <a class="social-link" href="mailto:your.email@example.com">
-                    ✉️ Email
-                </a>
-            </div>
-        </header>
+  <!-- ─── HEADER ─── -->
+  <header>
+    <div class="wrap nav">
+      <a href="#top" class="logo">Pablo<span>.</span>Morena</a>
 
-        <!-- FEATURED PROJECT -->
-        <h2 class="section-title">⭐ Featured Project</h2>
+      <nav class="nav-links">
+        <a href="#about" data-i18n="nav_about">Sobre mí</a>
+        <a href="#projects" data-i18n="nav_projects">Proyectos</a>
+        <a href="#skills" data-i18n="nav_skills">Skills</a>
+        <a href="#contact" data-i18n="nav_contact">Contacto</a>
+      </nav>
 
-        <div class="project-card">
-            <div class="project-emoji">⚽</div>
-            <h2 class="project-title">FIFA World Cup 2026 AI Predictor</h2>
-            <p class="project-subtitle">End-to-End Data Science Project · Final Bootcamp Project 2025</p>
-
-            <p class="project-description">
-                A comprehensive Data Science pipeline that predicts international football match
-                outcomes using over 150 years of historical data (49,000+ matches). The application
-                features a full FIFA World Cup 2026 tournament simulator with all 48 teams,
-                104 matches, group standings, and a complete knockout bracket — plus AI-powered
-                match analysis grounded in real statistical data.
-            </p>
-
-            <ul class="highlights">
-                <li>Engineered 13 contextual features per match (rankings, form, H2H, venue) with zero data leakage</li>
-                <li>Trained &amp; compared 4 ML/DL models: XGBoost (best ~62%), Random Forest, Gradient Boosting, Neural Network</li>
-                <li>Integrated a Large Language Model (LLM) via OpenRouter with multi-model fallback system</li>
-                <li>Built an interactive 4-page Streamlit app with custom dark theme &amp; team crest visualization</li>
-                <li>Simulates the entire World Cup 2026 bracket: group stage + Round of 32 → Final</li>
-            </ul>
-
-            <div class="tech-stack">
-                <span class="tech-tag">Python</span>
-                <span class="tech-tag">XGBoost</span>
-                <span class="tech-tag">TensorFlow</span>
-                <span class="tech-tag">Scikit-learn</span>
-                <span class="tech-tag">Pandas</span>
-                <span class="tech-tag">Streamlit</span>
-                <span class="tech-tag">Plotly</span>
-                <span class="tech-tag">OpenRouter (LLM)</span>
-                <span class="tech-tag">Joblib</span>
-            </div>
-
-            <div class="button-row">
-                <a class="btn btn-primary" href="https://fifa-wc26-predictor.streamlit.app/" target="_blank" rel="noopener">
-                    🚀 LAUNCH LIVE APP
-                </a>
-                <a class="btn btn-secondary" href="https://github.com/PabloXberg/Final-Project---World-Cup" target="_blank" rel="noopener">
-                    💻 VIEW SOURCE CODE
-                </a>
-            </div>
-        </div>
-
-        <!-- FOOTER -->
-        <footer>
-            <p>© 2025 Pablo Morena · Built with ❤️ and Data Science</p>
-        </footer>
-
+      <div class="lang-toggle" data-lang="es" role="tablist" aria-label="Language">
+        <span class="lang-pill-bg"></span>
+        <button class="active" data-set-lang="es">ES</button>
+        <button data-set-lang="en">EN</button>
+      </div>
     </div>
+  </header>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero wrap" id="top">
+    <div class="hero-eyebrow" data-i18n="hero_eyebrow">Berlín, Alemania · Disponible para nuevos roles</div>
+    <p class="hero-sub" data-i18n="hero_sub">
+      Soy <strong>Pablo Morena</strong>, <em>Data Scientist</em> y <em>Full-Stack Developer</em>
+      basado en Berlín. Combino los fundamentos de la ingeniería de software con la rigurosidad
+      analítica del data science — construyo soluciones de extremo a extremo, desde la exploración
+      de datos crudos hasta la aplicación desplegada en producción. Empecé mi carrera en Uruguay
+      como programador, me reinventé en Berlín con dos bootcamps intensivos, y hoy estoy abierto
+      a nuevos roles donde combinar ambos mundos.
+    </p>
+
+    <div class="hero-actions">
+      <a class="btn primary" href="#projects" data-i18n="cta_projects">Ver proyectos</a>
+      <a class="btn" href="https://github.com/PabloXberg" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.7.1-.7 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.4 3.6 1 .1-.8.4-1.4.8-1.7-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.3-3.3-.1-.3-.6-1.6.1-3.3 0 0 1-.3 3.3 1.3a11.4 11.4 0 0 1 6 0c2.3-1.6 3.3-1.3 3.3-1.3.7 1.7.2 3 .1 3.3.8.9 1.3 2 1.3 3.3 0 4.7-2.9 5.7-5.6 6 .5.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+        GitHub
+      </a>
+      <a class="btn" href="https://www.linkedin.com/in/pablo-morena/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14C2.2 0 0 2.2 0 5v14c0 2.8 2.2 5 5 5h14c2.8 0 5-2.2 5-5V5c0-2.8-2.2-5-5-5zM8 19H5V8h3v11zM6.5 6.7c-1 0-1.7-.8-1.7-1.7s.8-1.7 1.7-1.7 1.7.8 1.7 1.7-.7 1.7-1.7 1.7zM20 19h-3v-5.6c0-1.4-.5-2.3-1.7-2.3-.9 0-1.5.6-1.7 1.2-.1.2-.1.5-.1.8V19h-3V8h3v1.3c.4-.6 1.1-1.5 2.7-1.5 2 0 3.5 1.3 3.5 4.1V19z"/></svg>
+        LinkedIn
+      </a>
+      <a class="btn" href="mailto:pablomorena@live.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M5 19h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2z"/></svg>
+        Email
+      </a>
+    </div>
+
+    <div class="scroll-hint" data-i18n="scroll_hint">Desplázate</div>
+  </section>
+
+  <!-- ─── ABOUT ─── -->
+  <section class="block reveal" id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-num">01 / <span data-i18n="num_about">Sobre mí</span></div>
+        <h2 class="section-title">
+          <span data-i18n="about_title_1">Un perfil </span><em data-i18n="about_title_2">híbrido.</em>
+        </h2>
+      </div>
+
+      <div class="about-grid">
+        <div></div>
+        <div class="about-content">
+          <p data-i18n="about_p1">
+            Desarrollador con un perfil híbrido entre desarrollo full-stack y data science.
+            Empecé mi carrera tech en Uruguay como programador, me mudé a Berlín, y recientemente
+            completé dos bootcamps intensivos: <strong>Full-Stack Development</strong>
+            (Code Academy Berlin, 2023) y <strong>Data Science &amp; Machine Learning</strong>
+            (Ironhack Berlin, 2025–2026).
+          </p>
+          <p class="dim" data-i18n="about_p2">
+            Combino fundamentos sólidos de ingeniería de software con experiencia práctica
+            construyendo pipelines de ML completos, APIs REST y aplicaciones React modernas.
+            Trilingüe: español, alemán e inglés. Basado en Berlín, abierto a roles full-stack
+            o data science, remotos o presenciales.
+          </p>
+
+          <div class="about-stats">
+            <div>
+              <div class="stat-num">2</div>
+              <div class="stat-label" data-i18n="stat_bootcamps">Bootcamps completados</div>
+            </div>
+            <div>
+              <div class="stat-num">3</div>
+              <div class="stat-label" data-i18n="stat_langs">Idiomas hablados</div>
+            </div>
+            <div>
+              <div class="stat-num">10+</div>
+              <div class="stat-label" data-i18n="stat_years">Años en tech</div>
+            </div>
+            <div>
+              <div class="stat-num">∞</div>
+              <div class="stat-label" data-i18n="stat_curiosity">Curiosidad</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PROJECTS ─── -->
+  <section class="block reveal" id="projects">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-num">02 / <span data-i18n="num_projects">Proyectos</span></div>
+        <h2 class="section-title">
+          <span data-i18n="proj_title_1">Trabajo </span><em data-i18n="proj_title_2">seleccionado.</em>
+        </h2>
+      </div>
+
+      <div class="projects">
+
+        <!-- FIFA Project -->
+        <article class="project">
+          <div class="project-visual visual-fifa">
+            <div class="project-icon">⚽</div>
+          </div>
+          <div class="project-body">
+            <div class="project-tag" data-i18n="proj_fifa_tag">Proyecto Final · Data Science</div>
+            <h3 class="project-title">FIFA World Cup 2026 AI Predictor</h3>
+            <p class="project-desc" data-i18n="proj_fifa_desc">
+              Pipeline de Data Science completo que predice resultados de partidos internacionales
+              usando más de 150 años de datos históricos (49.000+ partidos). La app simula el Mundial
+              2026 entero — 48 equipos, 104 partidos, fase de grupos y eliminación directa — con
+              análisis IA basado en estadísticas reales.
+            </p>
+            <div class="project-stack">
+              <span class="chip">Python</span>
+              <span class="chip">XGBoost</span>
+              <span class="chip">TensorFlow</span>
+              <span class="chip">Streamlit</span>
+              <span class="chip">OpenRouter LLM</span>
+              <span class="chip">Plotly</span>
+            </div>
+            <div class="project-links">
+              <a class="btn primary" href="https://fifa-wc26-predictor.streamlit.app/" target="_blank" rel="noopener">
+                <span data-i18n="btn_live">Live Demo</span> →
+              </a>
+              <a class="btn" href="https://github.com/PabloXberg/FIFA-World-Cup-Predictor" target="_blank" rel="noopener">
+                <span data-i18n="btn_code">Código</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- SYSO Project -->
+        <article class="project">
+          <div class="project-visual visual-syso">
+            <div class="project-icon">✦</div>
+          </div>
+          <div class="project-body">
+            <div class="project-tag" data-i18n="proj_syso_tag">Proyecto Final · Full-Stack</div>
+            <h3 class="project-title">SYSO — Share Your Sketch</h3>
+            <p class="project-desc" data-i18n="proj_syso_desc">
+              Plataforma social donde los usuarios se registran, suben sus bocetos para compartir,
+              comentan publicaciones y dan likes al contenido de otros. Implementa CRUD completo,
+              autenticación JWT, gestión de imágenes con Cloudinary y diseño mobile-first.
+            </p>
+            <div class="project-stack">
+              <span class="chip">MongoDB</span>
+              <span class="chip">Express</span>
+              <span class="chip">React</span>
+              <span class="chip">Node.js</span>
+              <span class="chip">TypeScript</span>
+              <span class="chip">Cloudinary</span>
+            </div>
+            <div class="project-links">
+              <a class="btn primary" href="https://shareyoursketch.com/" target="_blank" rel="noopener">
+                <span data-i18n="btn_live">Live Demo</span> →
+              </a>
+              <a class="btn" href="https://github.com/PabloXberg" target="_blank" rel="noopener">
+                <span data-i18n="btn_code">Código</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SKILLS ─── -->
+  <section class="block reveal" id="skills">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-num">03 / <span data-i18n="num_skills">Skills</span></div>
+        <h2 class="section-title">
+          <span data-i18n="skills_title_1">El </span><em data-i18n="skills_title_2">toolkit.</em>
+        </h2>
+      </div>
+
+      <div class="skills-grid">
+        <div></div>
+        <div class="skills-cats">
+
+          <div class="skill-cat">
+            <h3 data-i18n="cat_languages">Lenguajes</h3>
+            <ul>
+              <li>Python <span class="level">Advanced</span></li>
+              <li>JavaScript <span class="level">Advanced</span></li>
+              <li>TypeScript <span class="level">Intermediate</span></li>
+              <li>SQL <span class="level">Intermediate</span></li>
+              <li>HTML &amp; CSS <span class="level">Advanced</span></li>
+            </ul>
+          </div>
+
+          <div class="skill-cat">
+            <h3 data-i18n="cat_datascience">Data Science / ML</h3>
+            <ul>
+              <li>pandas · NumPy</li>
+              <li>scikit-learn</li>
+              <li>XGBoost</li>
+              <li>TensorFlow / Keras</li>
+              <li>Streamlit · Plotly</li>
+              <li>LLM Integration</li>
+            </ul>
+          </div>
+
+          <div class="skill-cat">
+            <h3 data-i18n="cat_web">Web Development</h3>
+            <ul>
+              <li>React</li>
+              <li>Node.js · Express</li>
+              <li>MongoDB</li>
+              <li>REST APIs</li>
+              <li>JWT Auth</li>
+              <li>Cloudinary</li>
+            </ul>
+          </div>
+
+          <div class="skill-cat">
+            <h3 data-i18n="cat_tools">Tools &amp; Deploy</h3>
+            <ul>
+              <li>Git · GitHub</li>
+              <li>VS Code · Jupyter</li>
+              <li>Streamlit Cloud</li>
+              <li>GitHub Pages</li>
+              <li>Vercel / Netlify</li>
+            </ul>
+          </div>
+
+          <div class="skill-cat">
+            <h3 data-i18n="cat_languages_spoken">Idiomas</h3>
+            <ul>
+              <li><span data-i18n="lang_es">Español</span> <span class="level">Native</span></li>
+              <li><span data-i18n="lang_de">Alemán</span> <span class="level">B2 / C1</span></li>
+              <li><span data-i18n="lang_en">Inglés</span> <span class="level">C1</span></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── EXPERIENCE & EDUCATION ─── -->
+  <section class="block reveal" id="experience">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-num">04 / <span data-i18n="num_path">Trayectoria</span></div>
+        <h2 class="section-title">
+          <span data-i18n="exp_title_1">El </span><em data-i18n="exp_title_2">camino.</em>
+        </h2>
+      </div>
+
+      <div class="timeline-wrap">
+        <div></div>
+        <div class="timeline">
+
+          <div class="timeline-block">
+            <h3 data-i18n="block_education">Formación</h3>
+
+            <div class="tl-item">
+              <div class="tl-date">2025 — 2026</div>
+              <div class="tl-content">
+                <h4 data-i18n="edu1_title">Data Science &amp; Machine Learning Bootcamp</h4>
+                <div class="org">Ironhack Academy · Berlin</div>
+              </div>
+            </div>
+
+            <div class="tl-item">
+              <div class="tl-date">2023</div>
+              <div class="tl-content">
+                <h4 data-i18n="edu2_title">Full-Stack Developer Bootcamp</h4>
+                <div class="org">Code Academy · Berlin</div>
+              </div>
+            </div>
+
+            <div class="tl-item">
+              <div class="tl-date">2021</div>
+              <div class="tl-content">
+                <h4 data-i18n="edu3_title">E-Mobility &amp; EUP Certification (DIN VDE 1000-10)</h4>
+                <div class="org">TÜV Thüringen · Berlin</div>
+              </div>
+            </div>
+
+            <div class="tl-item">
+              <div class="tl-date">2006 — 2007</div>
+              <div class="tl-content">
+                <h4 data-i18n="edu4_title">Programmer Technician</h4>
+                <div class="org">Escuela Interamericana de Ciencias Informáticas · Montevideo</div>
+              </div>
+            </div>
+
+            <div class="tl-item">
+              <div class="tl-date">2003 — 2007</div>
+              <div class="tl-content">
+                <h4 data-i18n="edu5_title">Technical Bachelor in IT Processing &amp; Maintenance</h4>
+                <div class="org">Universidad Técnica del Uruguay (UTU) · Montevideo</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-block">
+            <h3 data-i18n="block_experience">Experiencia</h3>
+
+            <div class="tl-item">
+              <div class="tl-date">2021 — 2022</div>
+              <div class="tl-content">
+                <h4 data-i18n="exp1_title">Technical Customer Support — E-Mobility</h4>
+                <div class="org">Majorel Berlin GmbH · Volkswagen Elli project</div>
+                <div class="desc" data-i18n="exp1_desc">
+                  Soporte técnico de segundo nivel para cargadores de vehículos eléctricos del Grupo
+                  Volkswagen. Resolución de problemas de hardware y backend mediante Salesforce y
+                  herramientas internas de ticketing.
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CONTACT ─── -->
+  <section class="block reveal" id="contact">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-num">05 / <span data-i18n="num_contact">Contacto</span></div>
+        <h2 class="section-title">
+          <span data-i18n="contact_title_1">Hablemos. </span><em data-i18n="contact_title_2">Estoy disponible.</em>
+        </h2>
+      </div>
+
+      <div class="contact-grid">
+        <div></div>
+        <div class="contact-inner">
+          <p class="contact-lead" data-i18n="contact_lead">
+            ¿Tenés un proyecto, una oportunidad o simplemente querés <em>charlar</em> sobre datos,
+            código o el Mundial 2026? Escribime.
+          </p>
+
+          <div class="contact-channels">
+            <a class="channel" href="mailto:pablomorena@live.com">
+              <div class="channel-label">Email</div>
+              <div class="channel-value">pablomorena@live.com</div>
+            </a>
+            <a class="channel" href="https://www.linkedin.com/in/pablo-morena/" target="_blank" rel="noopener">
+              <div class="channel-label">LinkedIn</div>
+              <div class="channel-value">in/pablo-morena</div>
+            </a>
+            <a class="channel" href="https://github.com/PabloXberg" target="_blank" rel="noopener">
+              <div class="channel-label">GitHub</div>
+              <div class="channel-value">@PabloXberg</div>
+            </a>
+            <div class="channel" style="cursor: default;">
+              <div class="channel-label" data-i18n="ch_location">Ubicación</div>
+              <div class="channel-value" data-i18n="ch_location_val">Berlín, Alemania</div>
+            </div>
+          </div>
+
+          <div class="cv-downloads">
+            <h3 data-i18n="cv_title">Descargar CV</h3>
+            <div class="cv-btns">
+              <a class="btn primary" href="./assets/cv/Pablo_Morena_CV_EN.pdf" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                CV · English
+              </a>
+              <a class="btn" href="./assets/cv/Pablo_Morena_CV_DE.pdf" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                CV · Deutsch
+              </a>
+              <a class="btn" href="./assets/cv/Pablo_Morena_CV_ES.pdf" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                CV · Español
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="wrap" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+      <div data-i18n="footer_copy">© 2026 Pablo Morena · Hecho con código &amp; café en Berlín.</div>
+      <div>
+        <a href="#top" data-i18n="footer_top">Volver arriba ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── SCRIPT ─── -->
+  <script>
+    // ────── i18n translations ──────
+    const t = {
+      es: {
+        nav_about: "Sobre mí",
+        nav_projects: "Proyectos",
+        nav_skills: "Skills",
+        nav_contact: "Contacto",
+        hero_eyebrow: "Berlín, Alemania · Disponible para nuevos roles",
+        hero_name_1: "Construyendo con",
+        hero_name_2: "datos & código.",
+        hero_sub: "Soy <strong>Pablo Morena</strong>, <em>Data Scientist</em> y <em>Full-Stack Developer</em> basado en Berlín. Combino los fundamentos de la ingeniería de software con la rigurosidad analítica del data science — construyo soluciones de extremo a extremo, desde la exploración de datos crudos hasta la aplicación desplegada en producción. Empecé mi carrera en Uruguay como programador, me reinventé en Berlín con dos bootcamps intensivos, y hoy estoy abierto a nuevos roles donde combinar ambos mundos.",
+        cta_projects: "Ver proyectos",
+        scroll_hint: "Desplázate",
+        num_about: "Sobre mí",
+        about_title_1: "Un perfil ",
+        about_title_2: "híbrido.",
+        about_p1: "Desarrollador con un perfil híbrido entre desarrollo full-stack y data science. Empecé mi carrera tech en Uruguay como programador, me mudé a Berlín, y recientemente completé dos bootcamps intensivos: <strong>Full-Stack Development</strong> (Code Academy Berlin, 2023) y <strong>Data Science & Machine Learning</strong> (Ironhack Berlin, 2025–2026).",
+        about_p2: "Combino fundamentos sólidos de ingeniería de software con experiencia práctica construyendo pipelines de ML completos, APIs REST y aplicaciones React modernas. Trilingüe: español, alemán e inglés. Basado en Berlín, abierto a roles full-stack o data science, remotos o presenciales.",
+        stat_bootcamps: "Bootcamps completados",
+        stat_langs: "Idiomas hablados",
+        stat_years: "Años en tech",
+        stat_curiosity: "Curiosidad",
+        num_projects: "Proyectos",
+        proj_title_1: "Trabajo ",
+        proj_title_2: "seleccionado.",
+        proj_fifa_tag: "Proyecto Final · Data Science",
+        proj_fifa_desc: "Pipeline de Data Science completo que predice resultados de partidos internacionales usando más de 150 años de datos históricos (49.000+ partidos). La app simula el Mundial 2026 entero — 48 equipos, 104 partidos, fase de grupos y eliminación directa — con análisis IA basado en estadísticas reales.",
+        proj_syso_tag: "Proyecto Final · Full-Stack",
+        proj_syso_desc: "Plataforma social donde los usuarios se registran, suben sus bocetos para compartir, comentan publicaciones y dan likes al contenido de otros. Implementa CRUD completo, autenticación JWT, gestión de imágenes con Cloudinary y diseño mobile-first.",
+        btn_live: "Live Demo",
+        btn_code: "Código",
+        num_skills: "Skills",
+        skills_title_1: "El ",
+        skills_title_2: "toolkit.",
+        cat_languages: "Lenguajes",
+        cat_datascience: "Data Science / ML",
+        cat_web: "Web Development",
+        cat_tools: "Tools & Deploy",
+        cat_languages_spoken: "Idiomas",
+        lang_es: "Español",
+        lang_de: "Alemán",
+        lang_en: "Inglés",
+        num_path: "Trayectoria",
+        exp_title_1: "El ",
+        exp_title_2: "camino.",
+        block_education: "Formación",
+        block_experience: "Experiencia",
+        edu1_title: "Bootcamp Data Science & Machine Learning",
+        edu2_title: "Bootcamp Full-Stack Developer",
+        edu3_title: "Certificación E-Mobility & EUP (DIN VDE 1000-10)",
+        edu4_title: "Técnico Programador",
+        edu5_title: "Bachillerato Técnico en Procesamiento y Mantenimiento Informático",
+        exp1_title: "Soporte Técnico — E-Mobility",
+        exp1_desc: "Soporte técnico de segundo nivel para cargadores de vehículos eléctricos del Grupo Volkswagen. Resolución de problemas de hardware y backend mediante Salesforce y herramientas internas de ticketing.",
+        num_contact: "Contacto",
+        contact_title_1: "Hablemos. ",
+        contact_title_2: "Estoy disponible.",
+        contact_lead: "¿Tenés un proyecto, una oportunidad o simplemente querés <em>charlar</em> sobre datos, código o el Mundial 2026? Escribime.",
+        ch_location: "Ubicación",
+        ch_location_val: "Berlín, Alemania",
+        cv_title: "Descargar CV",
+        footer_copy: "© 2026 Pablo Morena · Hecho con código & café en Berlín.",
+        footer_top: "Volver arriba ↑"
+      },
+      en: {
+        nav_about: "About",
+        nav_projects: "Projects",
+        nav_skills: "Skills",
+        nav_contact: "Contact",
+        hero_eyebrow: "Berlin, Germany · Open to new roles",
+        hero_name_1: "Building with",
+        hero_name_2: "data & code.",
+        hero_sub: "I'm <strong>Pablo Morena</strong>, a <em>Data Scientist</em> & <em>Full-Stack Developer</em> based in Berlin. I combine software engineering fundamentals with the analytical rigor of data science — building end-to-end solutions, from raw data exploration all the way to production-deployed applications. I started my career in Uruguay as a programmer, reinvented myself in Berlin through two intensive bootcamps, and I'm now open to new roles where I can blend both worlds.",
+        cta_projects: "See projects",
+        scroll_hint: "Scroll",
+        num_about: "About",
+        about_title_1: "A ",
+        about_title_2: "hybrid profile.",
+        about_p1: "Developer with a hybrid background in full-stack web development and data science. I started my tech career in Uruguay as a programmer, moved to Berlin, and recently completed two intensive bootcamps: <strong>Full-Stack Development</strong> (Code Academy Berlin, 2023) and <strong>Data Science & Machine Learning</strong> (Ironhack Berlin, 2025–2026).",
+        about_p2: "I combine solid software engineering fundamentals with hands-on experience building end-to-end ML pipelines, REST APIs, and modern React applications. Trilingual: Spanish, German, and English. Based in Berlin, open to full-stack or data science roles — remote or on-site.",
+        stat_bootcamps: "Bootcamps completed",
+        stat_langs: "Languages spoken",
+        stat_years: "Years in tech",
+        stat_curiosity: "Curiosity",
+        num_projects: "Projects",
+        proj_title_1: "Selected ",
+        proj_title_2: "work.",
+        proj_fifa_tag: "Capstone Project · Data Science",
+        proj_fifa_desc: "End-to-end Data Science pipeline predicting international football match outcomes using 150+ years of historical data (49,000+ matches). The app simulates the entire World Cup 2026 — 48 teams, 104 matches, group stage and knockouts — with AI-powered analysis grounded in real statistics.",
+        proj_syso_tag: "Capstone Project · Full-Stack",
+        proj_syso_desc: "Social platform where users register, upload and share their sketches, comment on posts, and like other users' content. Full CRUD, JWT authentication, image management with Cloudinary, and mobile-first design.",
+        btn_live: "Live Demo",
+        btn_code: "Source",
+        num_skills: "Skills",
+        skills_title_1: "The ",
+        skills_title_2: "toolkit.",
+        cat_languages: "Languages",
+        cat_datascience: "Data Science / ML",
+        cat_web: "Web Development",
+        cat_tools: "Tools & Deploy",
+        cat_languages_spoken: "Spoken languages",
+        lang_es: "Spanish",
+        lang_de: "German",
+        lang_en: "English",
+        num_path: "Path",
+        exp_title_1: "The ",
+        exp_title_2: "journey.",
+        block_education: "Education",
+        block_experience: "Experience",
+        edu1_title: "Data Science & Machine Learning Bootcamp",
+        edu2_title: "Full-Stack Developer Bootcamp",
+        edu3_title: "E-Mobility & EUP Certification (DIN VDE 1000-10)",
+        edu4_title: "Programmer Technician",
+        edu5_title: "Technical Bachelor in IT Processing & Maintenance",
+        exp1_title: "Technical Customer Support — E-Mobility",
+        exp1_desc: "2nd-level technical support for Volkswagen Group EV chargers. Hardware and back-end troubleshooting via Salesforce and internal ticketing tools.",
+        num_contact: "Contact",
+        contact_title_1: "Let's talk. ",
+        contact_title_2: "I'm available.",
+        contact_lead: "Got a project, an opportunity, or just want to <em>chat</em> about data, code, or the 2026 World Cup? Drop me a line.",
+        ch_location: "Location",
+        ch_location_val: "Berlin, Germany",
+        cv_title: "Download CV",
+        footer_copy: "© 2026 Pablo Morena · Built with code & coffee in Berlin.",
+        footer_top: "Back to top ↑"
+      }
+    };
+
+    // ────── i18n apply ──────
+    function applyLang(lang) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[lang] && t[lang][key] !== undefined) {
+          el.innerHTML = t[lang][key];
+        }
+      });
+      document.querySelector('.lang-toggle').setAttribute('data-lang', lang);
+      document.querySelectorAll('.lang-toggle button').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-set-lang') === lang);
+      });
+      try { localStorage.setItem('pm_lang', lang); } catch (e) { /* ignore */ }
+    }
+
+    // Initial lang load
+    let initialLang = 'es';
+    try {
+      const saved = localStorage.getItem('pm_lang');
+      if (saved === 'en' || saved === 'es') initialLang = saved;
+      else if (navigator.language && navigator.language.startsWith('en')) initialLang = 'en';
+    } catch (e) { /* ignore */ }
+    applyLang(initialLang);
+
+    // Toggle buttons
+    document.querySelectorAll('.lang-toggle button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        applyLang(btn.getAttribute('data-set-lang'));
+      });
+    });
+
+    // ────── Scroll reveal ──────
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+
 </body>
 </html>
